@@ -18,3 +18,51 @@ commands:
            /wandmin bind <command>   : Bind a command
            /wandmin unbind <command> : Remove a command
            /wandmin destroy <name>   : Destroy a wand
+permissions:
+  Wandmin:
+    description: Wandmin permissions
+    type: map
+    map:
+      commands:
+        description: Wandmin console command permissions
+        type: map
+        map:
+          wandmin:
+            description: Player may use wandmin commands
+            type: map
+            map:
+              commands:
+                description: Player may list bound commands
+                type: boolean
+                default: true
+              spells:
+                description: Player may list bound commands
+                type: boolean
+                default: true
+              wands:
+                description: Player may list wands
+                type: boolean
+                default: true
+              next:
+                description: Player may cycle to the next wand
+                type: boolean
+                default: true
+              create:
+                description: Player may create a wand
+                type: boolean
+                default: true
+              bind:
+                description: Player may bind a command to a wand
+                type: boolean
+                default: true
+              unbind:
+                description: Player may unbind a command from a want
+                type: boolean
+                default: true
+              destroy:
+                description: Player may destroy a wand
+                type: boolean
+                default: true
+                
+                
+           

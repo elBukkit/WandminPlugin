@@ -2,9 +2,10 @@ package com.elmakers.mine.bukkit.plugins.wandmin;
 
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerListener;
-import org.bukkit.event.player.PlayerQuitEvent;
+
+import com.elmakers.mine.bukkit.plugins.wandmin.dao.PlayerWands;
+import com.elmakers.mine.bukkit.plugins.wandmin.dao.Wand;
 
 public class WandminPlayerListener extends PlayerListener 
 {
@@ -13,13 +14,7 @@ public class WandminPlayerListener extends PlayerListener
     {
         if (event.getPlayer().getInventory().getItemInHand().getTypeId() == plugin.getWandTypeId())
         {
-            WandPermissions permissions = plugin.getPermissions(event.getPlayer().getName());   
-            if (!permissions.canUse())
-            {
-                return;
-            }
-            
-            PlayerWandList wands = plugin.getPlayerWands(event.getPlayer());
+            PlayerWands wands = plugin.getPlayerWands(event.getPlayer());
             Wand wand = wands.getCurrentWand();
             if (wand == null)
             {
@@ -44,30 +39,4 @@ public class WandminPlayerListener extends PlayerListener
 	{
 		this.plugin = plugin;
 	}
-	
-    /**
-     * Called when a player joins a server
-     *
-     * @param event Relevant event details
-     */
-    @Override
-    public void onPlayerJoin(PlayerJoinEvent event) 
-    {
-    	PlayerWandList wands = plugin.getPlayerWands(event.getPlayer().getName());
-    	wands.setPlayer(event.getPlayer());
-    	plugin.save();
-    }
-
-    /**
-     * Called when a player leaves a server
-     *
-     * @param event Relevant event details
-     */
-    @Override
-    public void onPlayerQuit(PlayerQuitEvent event) 
-    {
-    	PlayerWandList wands = plugin.getPlayerWands(event.getPlayer().getName());
-    	wands.setPlayer(null);
-    	plugin.save();
-    }
 }
